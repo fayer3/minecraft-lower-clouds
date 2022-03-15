@@ -1,0 +1,74 @@
+{
+	"url": "https://github.com/fayer3/minecraft-lower-clouds",
+	"name": "Lower Clouds",
+	"creator": "fayer3",
+	"creatorLink": "https://github.com/fayer3",
+	"description": "Changes the cloud height, can be lowered or raised",
+	"thumbnail": "https://github.com/fayer3/minecraft-lower-clouds/raw/main/pack.png",
+	"settings": [
+		{
+			"type": "constant",
+			"name": "CLOUD_HEIGHT",
+			"displayName": "Cloud height",
+			"format": "float",
+			"defaultValue": 96.0,
+			"description": "The height at which the clouds will be, clouds will start 2 blocks below this value."
+		},
+		{
+			"type": "define",
+			"name": "MC_CLOUD_VERSION",
+			"displayName": "Minecraft Version",
+			"format": "enum",
+			"defaultValue": 11802,
+			"enumValues": [
+				{
+					"name": "1.17.x",
+					"value": 11700
+				},
+				{
+					"name": "1.18.0",
+					"value": 11800
+				},
+				{
+					"name": "1.18.1",
+					"value": 11801
+				},
+				{
+					"name": "1.18.2",
+					"value": 11802
+				}
+			],
+			"description": "Select the version you are going to use this shader with."
+		}
+	],
+	"stringReplace": [
+		{
+			"regex": "\"pack_version\": \\d+",
+			"with": "\"pack_version\": ${MC_CLOUD_VERSION}",
+			"mapping": {
+				"MC_CLOUD_VERSION": {
+					"11700": "7",
+					"11800": "8",
+					"11801": "8",
+					"11802": "8"
+				}
+			}
+		}
+		{
+			"regex": "1\\.18\\.2",
+			"with": "${MC_CLOUD_VERSION}",
+			"mapping": {
+				"MC_CLOUD_VERSION": {
+						"11700": "1.17.x",
+						"11800": "1.18.0",
+						"11801": "1.18.1",
+						"11802": "1.18.2"
+				}
+			}
+		},
+		{
+			"regex": "96",
+			"with": "${CLOUD_HEIGHT}"
+		}
+	]
+}
