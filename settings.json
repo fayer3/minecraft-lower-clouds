@@ -35,12 +35,22 @@
 	],
 	"stringReplace": [
 		{
-			"regex": "\"pack_version\": \\d+,",
-			"with": "\"pack_version\": ${MC_CLOUD_VERSION},",
+			"regex": "\"pack_format\": \\d+",
+			"with": "\"pack_format\": ${MC_CLOUD_VERSION}",
 			"mapping": {
 				"MC_CLOUD_VERSION": {
 					"11700": "7",
 					"11800": "8"
+				}
+			}
+		},
+		{
+			"regex": "\"supported_formats\": \\[\\d+,\\d+\\],",
+			"with": "\"${MC_CLOUD_VERSION}",
+			"mapping": {
+				"MC_CLOUD_VERSION": {
+					"11700": "",
+					"11800": "\"supported_formats\": [8,34],"
 				}
 			}
 		},

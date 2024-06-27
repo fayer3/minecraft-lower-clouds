@@ -1,7 +1,7 @@
 {
     "pack": {
         "description": "Sets the cloud height to 96\nConfigured to work with 1.18+",
-        "pack_format": 15,
-        "supported_formats": [8,34]
+        "supported_formats": [8,34],
+        "pack_format": 15
     }
 }
