@@ -35,14 +35,12 @@
 	],
 	"stringReplace": [
 		{
-			"regex": "\"pack_version\": \\d+",
-			"with": "\"pack_version\": ${MC_CLOUD_VERSION}",
+			"regex": "\"pack_version\": \\d+,",
+			"with": "\"pack_version\": ${MC_CLOUD_VERSION},",
 			"mapping": {
 				"MC_CLOUD_VERSION": {
 					"11700": "7",
-					"11800": "8",
-					"11801": "8",
-					"11802": "8"
+					"11800": "8"
 				}
 			}
 		},
