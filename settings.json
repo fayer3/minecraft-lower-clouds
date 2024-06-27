@@ -26,16 +26,8 @@
 					"value": 11700
 				},
 				{
-					"name": "1.18.0",
+					"name": "1.18+",
 					"value": 11800
-				},
-				{
-					"name": "1.18.1",
-					"value": 11801
-				},
-				{
-					"name": "1.18.2",
-					"value": 11802
 				}
 			],
 			"description": "Select the version you are going to use this shader with."
@@ -55,14 +47,12 @@
 			}
 		},
 		{
-			"regex": "1\\.18\\.2",
+			"regex": "1\\.18\\+",
 			"with": "${MC_CLOUD_VERSION}",
 			"mapping": {
 				"MC_CLOUD_VERSION": {
 						"11700": "1.17.x",
-						"11800": "1.18.0",
-						"11801": "1.18.1",
-						"11802": "1.18.2"
+						"11800": "1.18+"
 				}
 			}
 		},
