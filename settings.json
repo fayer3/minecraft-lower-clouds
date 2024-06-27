@@ -19,7 +19,7 @@
 			"name": "MC_CLOUD_VERSION",
 			"displayName": "Minecraft Version",
 			"format": "enum",
-			"defaultValue": 11802,
+			"defaultValue": 11800,
 			"enumValues": [
 				{
 					"name": "1.17.x",
