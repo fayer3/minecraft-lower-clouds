@@ -46,7 +46,7 @@
 		},
 		{
 			"regex": "\"supported_formats\": \\[\\d+,\\d+\\],",
-			"with": "\"${MC_CLOUD_VERSION}",
+			"with": "${MC_CLOUD_VERSION}",
 			"mapping": {
 				"MC_CLOUD_VERSION": {
 					"11700": "",
