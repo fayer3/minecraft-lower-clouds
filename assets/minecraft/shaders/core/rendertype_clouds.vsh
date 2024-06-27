@@ -1,10 +1,30 @@
 #version 150
 
 /*
-code by fayer3
+MIT License
+
+Copyright (c) 2024 fayer3
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 */
 
-#define MC_CLOUD_VERSION 11802
+#define MC_CLOUD_VERSION 12005
 
 #if MC_CLOUD_VERSION == 11700
   const float VANILLA_CLOUD_HEIGHT = 128.0;
@@ -14,8 +34,6 @@ code by fayer3
 
 const float CLOUD_HEIGHT = 96.0;
 
-#moj_import <fog.glsl>
-
 in vec3 Position;
 in vec2 UV0;
 in vec4 Color;
@@ -24,7 +42,16 @@ in vec3 Normal;
 uniform mat4 ModelViewMat;
 uniform mat4 IViewRotMat;
 
-mat3 actualIViewRotMat = mat3(IViewRotMat[0][0], IViewRotMat[0][1], IViewRotMat[0][2], IViewRotMat[0][3], IViewRotMat[1][0], IViewRotMat[1][1], IViewRotMat[1][2], IViewRotMat[1][3], IViewRotMat[2][0]);
+// weird indices, beccause the uniform is actually a mat3 in a mat4, bucause minecraft 1.18 doesn't like mat3 uniforms
+mat3 actualIViewRotMat = mat3(
+  IViewRotMat[0][0], IViewRotMat[0][1], IViewRotMat[0][2],
+  IViewRotMat[0][3], IViewRotMat[1][0], IViewRotMat[1][1],
+  IViewRotMat[1][2], IViewRotMat[1][3], IViewRotMat[2][0]);
+
+const mat3 inverseCloudsScale = mat3(
+    0.0833, 0.0, 0.0,
+    0.0, 1.0, 0.0,
+    0.0, 0.0, 0.0833);
 
 uniform mat4 ProjMat;
 uniform sampler2D Sampler0;
@@ -36,6 +63,12 @@ out vec4 vertexColor;
 void main() {
     texCoord0 = UV0;
     vertexColor = Color;
+    
+    if (actualIViewRotMat[0].x > 0.999 && actualIViewRotMat[1].y > 0.999 && actualIViewRotMat[2].z > 0.999) {
+      // 1.20.5+ removes IViewRotMat, and has the cloud scale in the modelview
+      actualIViewRotMat = inverseCloudsScale * transpose(mat3(ModelViewMat));
+    }
+    
     vec3 newPosition = vec3(Position.x, Position.y+(CLOUD_HEIGHT-VANILLA_CLOUD_HEIGHT), Position.z);
     if (abs(Normal.y) > 0.9) {
       if (Position.x < 7.9  || (Position.x < 8.1 && (gl_VertexID % 4 == 1 || gl_VertexID % 4 == 2))) {
