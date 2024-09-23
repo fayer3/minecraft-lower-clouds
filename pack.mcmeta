@@ -1,7 +1,15 @@
 {
     "pack": {
         "description": "Sets the cloud height to 96\nConfigured to work with 1.18+",
-        "supported_formats": [8,34],
+        "supported_formats": [8,39],
         "pack_format": 15
+    },
+    "overlays": {
+        "entries": [
+            {
+                "formats": [36, 999],
+                "directory": "1.21.2-overlay"
+            }
+        ]
     }
 }
