@@ -1,9 +1,6 @@
 #version 150
 
 /*
-#version 150
-
-/*
 MIT License
 
 Copyright (c) 2024 fayer3
